@@ -1,14 +1,18 @@
 # ========================================================================
 # LOG QUERY - START ======================================================
 # ========================================================================
-CAR_ADD_QUERY = """ """
+CAR_ADD_QUERY = """
+    INSERT INTO apps_car (brand, model, year, price, description, created_at, updated_at)
+    VALUES (%s, %s, %s, %s, %s, NOW(), NOW())
+"""
 CAR_GET_ALL_QUERY = """
     SELECT * FROM apps_car
     WHERE is_deleted = 0
 """
 CAR_GET_BY_ID_QUERY = """
     SELECT * FROM apps_car
-    WHERE id = %s AND is_deleted = 0"""
+    WHERE id = %s AND is_deleted = 0
+"""
 # ========================================================================
 # LOG QUERY - END ========================================================
 # ========================================================================

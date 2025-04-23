@@ -1,6 +1,7 @@
 from django.db import connection
 
 
+# Select All Data to JSON
 def get_data(query):
     with connection.cursor() as cursor:
         cursor.execute(query)
@@ -8,7 +9,7 @@ def get_data(query):
         results = [dict(zip(columns, row)) for row in cursor.fetchall()]
     return results
 
-# Select All Data to JSON
+# Select Data with Value to JSON
 def get_data_with_values(query, values):
     with connection.cursor() as cursor:
         cursor.execute(query, values)
@@ -17,11 +18,16 @@ def get_data_with_values(query, values):
     return results
 
 # Insert Data
-def insert(conn, query, values):
-    cursor = conn.cursor()
-    cursor.execute(query, values)
-    conn.commit()
+def save_data(query, values):
+    with connection.cursor() as cursor:
+        cursor.execute(query, values)
 
+# Insert Data Return
+def save_return_data(query, values):
+    with connection.cursor() as cursor:
+        cursor.execute(query, values)
+        connection.commit()
+        return cursor.lastrowid
 
 # Execute Query without Values
 def execute(conn, query):
@@ -33,30 +39,3 @@ def execute(conn, query):
     for result in results:
         json_data.append(dict(zip(row_headers, result)))
     return json_data
-
-
-
-# class DBHelper():
-#     def __init__(self):
-#         self.db = connection()
-    
-#     def get_data(self, query, values):
-#         return select(self.db, query, values)
-    
-#     def get_count_data(self, query):
-#         return row_count(self.db, query)
-    
-#     def get_count_filter_data(self, query, values):
-#         return row_count_value(self.db, query, values)
-    
-#     def save_data(self, query, values):
-#         return insert(self.db, query, values)
-    
-#     def save_return(self, query, values):
-#         return insert_return(self.db, query, values)
-
-#     def update_data(self, query, values):
-#         return insert(self.db, query, values)
-    
-#     def execute(self, query):
-#         return execute(self.db, query)
