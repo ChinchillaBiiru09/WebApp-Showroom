@@ -61,6 +61,18 @@
                     <div class="col-3">Description</div>
                     <div class="col-8">{{ car.0.description }}</div>
                 </div>
+                <div class="row mt-5">
+                    <div class="col-3">Do you want to delete the car?</div>
+                    <div class="col-8">
+                        <form action="{% url 'delete_car' car.0.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Please confirm to delete this data.');">
+                                <i class="fi fi-rr-trash"></i> Delete
+                            </button>
+                        </form>
+                        <!-- <a href="{% url 'delete_car' car.0.id %}" class="btn btn-outline-danger ps-5 pe-5">Ok</a> -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>

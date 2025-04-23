@@ -23,7 +23,7 @@
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Service</a>
+                    <a class="nav-link" href="{% url 'create_service' %}">Service</a>
                 </li>
             </ul>
         </div>
@@ -61,8 +61,14 @@
                         <td>{{ car.model }}</td>
                         <td>{{ car.year }}</td>
                         <td>
-                            <a href="{% url 'update_car' car.id %}" class="text-decoration-none"><i class="fi fi-rr-pencil"></i></a>
-                            <a href="{% url 'detail_car' car.id %}" class="text-decoration-none"><i class="fi fi-rs-info"></i></a>
+                            <a href="{% url 'update_car' car.id %}" class="btn btn-link text-decoration-none"><i class="fi fi-rr-pencil"></i></a>
+                            <form action="{% url 'delete_car' car.id %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-link text-decoration-none" onclick="return confirm('Please confirm to delete this data.');">
+                                    <i class="fi fi-rr-trash"></i>
+                                </button>
+                            </form>
+                            <a href="{% url 'detail_car' car.id %}" class="btn btn-link text-decoration-none"><i class="fi fi-rs-info"></i></a>
                         </td>
                     </tr>
                     {% endfor %}

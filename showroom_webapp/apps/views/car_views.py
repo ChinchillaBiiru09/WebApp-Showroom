@@ -3,7 +3,8 @@ from django.http import HttpResponse
 from django.core.serializers import serialize
 from ..utilities.forms import CarForm
 from ..utilities.db_helper import *
-from ..utilities.queries import CAR_ADD_QUERY, CAR_GET_ALL_QUERY, CAR_GET_BY_ID_QUERY
+from ..utilities.queries import CAR_ADD_QUERY, CAR_GET_ALL_QUERY, CAR_GET_BY_ID_QUERY, CAR_DELETE_QUERY, CAR_UPDATE_QUERY
+# from .home_views import index
 
 
 # CREATE DATA
@@ -22,7 +23,7 @@ def create_car(request):
     else:
         form = CarForm()
 
-    return render(request, 'create_car_page.html', {'form': form})
+    return render(request, 'car/create_car_page.html', {'form': form})
     
 
 # VIEW DATA
@@ -48,18 +49,18 @@ def update_car(request, id):
 
 
 # DELETE DATA
-# DEL http://127.0.0.1:8000/car/update/(id)
+# DEL http://127.0.0.1:8000/car/delete/(id)
 def delete_car(request, id):
-    query = CAR_GET_BY_ID_QUERY
-    values = (id)
-    car = get_data_with_values(query, values)
+    print(request.method)
     if request.method == 'POST':
-        form = CarForm(request.POST)
-        if form.is_valid():
-            form.save()
+        query = CAR_DELETE_QUERY
+        values = (id,)
+        print(values)
+        dell = save_data(query, values)
+        print(dell)
+        return redirect('index')
     else:
-        form = CarForm()
-    return render(request, 'update_car_page.html', {'form': form, 'car': car})
+        return redirect(detail_car, id)
 
 
 # DETAIL DATA
@@ -69,7 +70,6 @@ def detail_car(request, id):
     values = (id,)
     car = get_data_with_values(query, values)
     if request.method == 'GET':
-        print(car)
         return render(request, 'car/detail_car_page.html', {'car': car})
     else:
         return render(request, 'create_car_page.html', {'car': car})
