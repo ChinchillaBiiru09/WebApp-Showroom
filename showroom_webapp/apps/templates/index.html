@@ -61,7 +61,7 @@
                         <td>{{ car.model }}</td>
                         <td>{{ car.year }}</td>
                         <td>
-                            <a href="{% url 'update_car' car.id %}" class="btn btn-link text-decoration-none"><i class="fi fi-rr-pencil"></i></a>
+                            <!-- <a href="{% url 'update_car' car.id %}" class="btn btn-link text-decoration-none"><i class="fi fi-rr-pencil"></i></a> -->
                             <form action="{% url 'delete_car' car.id %}" method="post" style="display:inline;">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-link text-decoration-none" onclick="return confirm('Please confirm to delete this data.');">

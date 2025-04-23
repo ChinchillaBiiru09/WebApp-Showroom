@@ -9,6 +9,12 @@ CAR_GET_ALL_QUERY = """
     SELECT * FROM apps_car
     WHERE is_deleted = 0
 """
+CAR_GET_JOIN_BY_ID_QUERY = """
+    SELECT * FROM apps_car
+    INNER JOIN apps_service 
+    ON apps_car.id = apps_service.car_id
+    WHERE apps_car.id = %s AND apps_car.is_deleted = 0
+"""
 CAR_GET_BY_ID_QUERY = """
     SELECT * FROM apps_car
     WHERE id = %s AND is_deleted = 0
@@ -30,7 +36,23 @@ CAR_DELETE_QUERY = """
 
 
 # ========================================================================
-# SERVICE QUERY - START ======================================================
+# CAR QUERY - START ======================================================
+# ========================================================================
+LOAN_ADD_QUERY = """
+    INSERT INTO apps_loan (car_id, loan, interest_rate, created_at, updated_at)
+    VALUES (%s, %s, %s, NOW(), NOW())
+"""
+LOAN_GET_BY_CAR_QUERY = """
+    SELECT * FROM apps_loan
+    WHERE car_id = %s AND is_deleted = 0
+"""
+# ========================================================================
+# CAR QUERY - END ========================================================
+# ========================================================================
+
+
+# ========================================================================
+# SERVICE QUERY - START ==================================================
 # ========================================================================
 SERVICE_ADD_QUERY = """
     INSERT INTO apps_service (car_id, price, description, created_at, updated_at)
@@ -39,6 +61,10 @@ SERVICE_ADD_QUERY = """
 SERVICE_GET_ALL_QUERY = """
     SELECT * FROM apps_service
     WHERE is_deleted = 0
+"""
+SERVICE_GET_BY_CAR_QUERY = """
+    SELECT * FROM apps_service
+    WHERE car_id = %s AND is_deleted = 0
 """
 SERVICE_GET_BY_ID_QUERY = """
     SELECT * FROM apps_service
@@ -56,5 +82,5 @@ SERVICE_DELETE_QUERY = """
     WHERE id = %s
 """
 # ========================================================================
-# SERVICE QUERY - END ========================================================
+# SERVICE QUERY - END ====================================================
 # ========================================================================

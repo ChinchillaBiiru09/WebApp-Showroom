@@ -8,5 +8,6 @@ def hpp_calculation(price, service_fee):
     # return price / (loan + interest_rate) + service_fee - x
     return price + service_fee
 
-def instalment_calculation(loan, interest_rate, months):
+def instalment_calculation(loan, interest_rate, years):
+    months = years * 12
     return (loan + interest_rate) / months

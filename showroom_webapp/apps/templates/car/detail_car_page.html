@@ -43,37 +43,91 @@
     
     <div class="container mt-5">
         <div class="row">
-            <h2>{{ car.0.brand }}</h2>
+            <div class="d-flex align-items-center">
+                <h2 class="me-2 mb-0">{{ car.brand }}</h2>
+                <form action="{% url 'delete_car' car.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-link text-decoration-none p-0" onclick="return confirm('Please confirm to delete this data.');">
+                        <i class="fi fi-rr-trash align-middle"></i>
+                    </button>
+                </form>
+            </div>
             <div class="container">
                 <div class="row m-3">
                     <div class="col-3">Model</div>
-                    <div class="col-8">{{ car.0.model }}</div>
+                    <div class="col-8">{{ car.model }}</div>
                 </div>
                 <div class="row m-3">
                     <div class="col-3">Year</div>
-                    <div class="col-8">{{ car.0.year }}</div>
+                    <div class="col-8">{{ car.year }}</div>
                 </div>
                 <div class="row m-3">
                     <div class="col-3">Price ($)</div>
-                    <div class="col-8">{{ car.0.price }}</div>
+                    <div class="col-8">{{ car.price }}</div>
                 </div>
                 <div class="row m-3">
                     <div class="col-3">Description</div>
-                    <div class="col-8">{{ car.0.description }}</div>
+                    <div class="col-8">{{ car.description }}</div>
                 </div>
-                <div class="row mt-5">
-                    <div class="col-3">Do you want to delete the car?</div>
-                    <div class="col-8">
-                        <form action="{% url 'delete_car' car.0.id %}" method="post" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Please confirm to delete this data.');">
-                                <i class="fi fi-rr-trash"></i> Delete
-                            </button>
-                        </form>
-                        <!-- <a href="{% url 'delete_car' car.0.id %}" class="btn btn-outline-danger ps-5 pe-5">Ok</a> -->
-                    </div>
+                <div class="row m-3">
+                    <div class="col-3">Cost of Goods Sold (HPP)</div>
+                    <div class="col-8">{{ hpp }}</div>
                 </div>
+
+                {% if loans %}
+                <div class="row m-3">
+                    <div class="col-3">Loans</div>
+                    <div class="col-8">{{ loans.loan }}</div>
+                </div>
+                <div class="row m-3">
+                    <div class="col-3">Interest Rate (% per year)</div>
+                    <div class="col-8">{{ loans.interest_rate }}</div>
+                </div>
+                <div class="row m-3">
+                    <div class="col-3">Interest Rate (Rp)</div>
+                    <div class="col-8">{{ interest_rate }}</div>
+                </div>
+                <div class="row m-3">
+                    <div class="col-3">Instalment</div>
+                    <div class="col-8">{{ Instalment }}</div>
+                </div>
+                {% endif %}
             </div>
+        </div>
+    </div>
+
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="d-flex align-items-center">
+                <h2 class="me-2 mb-0">Service List</h2>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if services %}
+                    {% for service in services %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ service.price }}</td>
+                        <td>{{ service.description }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td>
+                            <h4>No data available.</h4>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
         </div>
     </div>
 </body>
