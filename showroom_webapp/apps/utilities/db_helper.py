@@ -28,14 +28,3 @@ def save_return_data(query, values):
         cursor.execute(query, values)
         connection.commit()
         return cursor.lastrowid
-
-# Execute Query without Values
-def execute(conn, query):
-    cursor = conn.cursor()
-    cursor.execute(query)
-    row_headers = [x[0] for x in cursor.description]
-    results = cursor.fetchall()
-    json_data = []
-    for result in results:
-        json_data.append(dict(zip(row_headers, result)))
-    return json_data

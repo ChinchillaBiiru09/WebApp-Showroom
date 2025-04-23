@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.core.serializers import serialize
 from ..utilities.forms import CarForm
 from ..utilities.db_helper import *
 from ..utilities.queries import *
 from ..utilities.utils import hpp_calculation, interest_rate_calculation, instalment_calculation
+
+
 
 # CREATE DATA
 # POST http://127.0.0.1:8000/car/create
@@ -17,11 +18,9 @@ def create_car(request):
             values = (data['brand'], data['model'], data['year'], data['price'], data['description'])
             car_id = save_data(query, values)
 
-            # Mengambil nilai pinjaman dan suku bunga, jika ada
+            # Get value of loan and interest rate from the form
             loan_amount = data.get('loan_amount')
             interest_rate = data.get('interest_rate')
-            print(loan_amount, interest_rate)
-
             if loan_amount or interest_rate:
                 query = LOAN_ADD_QUERY
                 values = (car_id, data['loan'], data['interest_rate'])
@@ -31,7 +30,6 @@ def create_car(request):
             return HttpResponse("Invalid form data")
     else:
         form = CarForm()
-
     return render(request, 'car/create_car_page.html', {'form': form})
     
 
@@ -41,35 +39,17 @@ def view_car():
     return cars
 
 
-# UPDATE DATA
-# PUT http://127.0.0.1:8000/car/update/(id)
-def update_car(request, id):
-    query = CAR_GET_BY_ID_QUERY
-    values = (id)
-    car = get_data_with_values(query, values)
-    print(car)
-    if request.method == 'POST':
-        form = CarForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = CarForm()
-    return render(request, 'create_car_page.html', {'form': form, 'car': car})
-
-
 # DELETE DATA
-# DEL http://127.0.0.1:8000/car/delete/(id)
+# POST http://127.0.0.1:8000/car/delete/(id)
 def delete_car(request, id):
     print(request.method)
     if request.method == 'POST':
         query = CAR_DELETE_QUERY
         values = (id,)
-        print(values)
-        dell = save_data(query, values)
-        print(dell)
+        save_data(query, values)
         return redirect('index')
     else:
-        return redirect(detail_car, id)
+        return redirect('detail_car', id)
 
 
 # DETAIL DATA

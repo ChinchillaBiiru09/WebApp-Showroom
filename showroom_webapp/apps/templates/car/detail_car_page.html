@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Showroom</title>
+    <title>XShowroom</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
@@ -20,10 +20,10 @@
             <a class="navbar-brand" href="#">X-SHOWROOM</a>
             <ul class="nav justify-content-end">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Service</a>
+                    <a class="nav-link" href="{% url 'create_service' %}">Service</a>
                 </li>
             </ul>
         </div>
@@ -132,5 +132,13 @@
             </table>
         </div>
     </div>
+
+
+    <footer>
+        <div class="container-fluid d-flex align-items-center justify-content-center text-center bg-light py-3 mt5">
+            <p class="mb-0">X-Showroom &copy; 2025</p>
+            <p class="mb-0">Created by <a href="https://www.linkedin.com/in/nur-khafidah-36aa58195/">NKhafidah</a></p>
+        </div>
+    </footer>
 </body>
 </html>

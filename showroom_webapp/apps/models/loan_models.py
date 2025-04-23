@@ -5,6 +5,7 @@ class Loan(models.Model):
     car_id = models.IntegerField()
     loan = models.DecimalField(max_digits=12, decimal_places=2)
     interest_rate = models.FloatField()
+    years = models.IntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)

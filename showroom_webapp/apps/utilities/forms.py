@@ -1,6 +1,4 @@
-# forms.py
 from django import forms
-# from ..models import Car
 from ..utilities.db_helper import get_data
 from ..utilities.queries import CAR_GET_ALL_QUERY
 
@@ -23,11 +21,11 @@ class ServiceForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
-        # Ambil data dari query manual
+        # Get data by query
         cars = get_data(CAR_GET_ALL_QUERY)
         
-        # Ubah jadi list tuple (id, nama)
+        # Change to list tuple
         choices = [(car['id'], f"{car['brand']} {car['model']}") for car in cars]
         
         # Set choices ke field form
-        self.fields['car'].choices = [('', '-- Pilih Mobil --')] + choices
+        self.fields['car'].choices = [('', '-- Select Car --')] + choices

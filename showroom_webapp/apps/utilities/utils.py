@@ -1,9 +1,8 @@
-
 def interest_rate_calculation(loan, interest_rate, years):
     return loan * (interest_rate / 100) * years
 
 def hpp_calculation(price, service_fee):
-    # Sepertinya ini adalah rumus yang salah
+    # Sepertinya rumus ini salah
     # hpp_calculation(price, loan, interest_rate, service_fee) - x
     # return price / (loan + interest_rate) + service_fee - x
     return price + service_fee
