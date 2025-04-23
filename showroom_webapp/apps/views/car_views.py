@@ -96,7 +96,7 @@ def detail_car(request, id):
         'loans': loans, 
         'services': services,
         'hpp': hpp,
-        'loans': loans[0],
+        'loans': loans,
         'interest_rate': interest_rate,
         'instalment': instalment,
         }

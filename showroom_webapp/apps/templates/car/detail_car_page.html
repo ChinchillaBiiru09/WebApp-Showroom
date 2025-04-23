@@ -62,7 +62,7 @@
                     <div class="col-8">{{ car.year }}</div>
                 </div>
                 <div class="row m-3">
-                    <div class="col-3">Price ($)</div>
+                    <div class="col-3">Price (Rp)</div>
                     <div class="col-8">{{ car.price }}</div>
                 </div>
                 <div class="row m-3">
@@ -77,11 +77,11 @@
                 {% if loans %}
                 <div class="row m-3">
                     <div class="col-3">Loans</div>
-                    <div class="col-8">{{ loans.loan }}</div>
+                    <div class="col-8">{{ loans.0.loan }}</div>
                 </div>
                 <div class="row m-3">
                     <div class="col-3">Interest Rate (% per year)</div>
-                    <div class="col-8">{{ loans.interest_rate }}</div>
+                    <div class="col-8">{{ loans.0.interest_rate }}</div>
                 </div>
                 <div class="row m-3">
                     <div class="col-3">Interest Rate (Rp)</div>
@@ -106,6 +106,7 @@
                 <thead>
                     <tr>
                         <th scope="col">No</th>
+                        <th scope="col">Date</th>
                         <th scope="col">Price</th>
                         <th scope="col">Description</th>
                     </tr>
@@ -115,6 +116,7 @@
                     {% for service in services %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ service.created_at }}</td>
                         <td>{{ service.price }}</td>
                         <td>{{ service.description }}</td>
                     </tr>
