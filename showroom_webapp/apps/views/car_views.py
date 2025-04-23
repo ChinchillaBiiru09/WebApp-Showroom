@@ -21,9 +21,11 @@ def create_car(request):
             # Get value of loan and interest rate from the form
             loan_amount = data.get('loan_amount')
             interest_rate = data.get('interest_rate')
-            if loan_amount or interest_rate:
+            loan_term = data.get('loan_term')
+            if loan_amount or interest_rate or loan_term:
+                print("here~")
                 query = LOAN_ADD_QUERY
-                values = (car_id, data['loan'], data['interest_rate'])
+                values = (car_id, loan_amount, interest_rate, loan_term)
                 save_data(query, values)
             return redirect('index')
         else:
