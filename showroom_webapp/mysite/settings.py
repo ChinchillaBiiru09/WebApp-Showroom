@@ -84,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'db_showroom',
         'USER': 'root',
-        'PASSWORD': 'Kira@0903@HsFid#db',
+        'PASSWORD': 'mysql@kiradb',
         'HOST': 'Localhost',
         'PORT': '3307'
     }

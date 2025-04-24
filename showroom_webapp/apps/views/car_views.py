@@ -22,6 +22,7 @@ def create_car(request):
             loan_amount = data.get('loan_amount')
             interest_rate = data.get('interest_rate')
             loan_term = data.get('loan_term')
+            
             if loan_amount or interest_rate or loan_term:
                 print("here~")
                 query = LOAN_ADD_QUERY
@@ -71,7 +72,7 @@ def detail_car(request, id):
     if loans:
         interest_rate = interest_rate_calculation(loans[0]['loan'], loans[0]['interest_rate'], loans[0]['years'])
         instalment = instalment_calculation(loans[0]['loan'], loans[0]['interest_rate'], loans[0]['years'])
-    hpp = hpp_calculation(car[0]['price'], services[0]['price']) if services else 0
+    hpp = hpp_calculation(car[0]['price'], services[0]['price']) if services else car[0]['price']
 
     response = {
         'car': car[0], 
