@@ -16,15 +16,16 @@ def create_car(request):
             data = form.cleaned_data
             query = CAR_ADD_QUERY
             values = (data['brand'], data['model'], data['year'], data['price'], data['description'])
-            car_id = save_data(query, values)
+            car_id = save_return_data(query, values)
 
             # Get value of loan and interest rate from the form
-            loan_amount = data.get('loan_amount')
-            interest_rate = data.get('interest_rate')
-            loan_term = data.get('loan_term')
-            
+            loan_amount = request.POST.get('loan_amount')
+            interest_rate = request.POST.get('interest_rate')
+            loan_term = request.POST.get('loan_term')
             if loan_amount or interest_rate or loan_term:
-                print("here~")
+                loan_amount = loan_amount if loan_amount else 0
+                interest_rate = interest_rate if interest_rate else 0
+                loan_term = loan_term if loan_term else 0
                 query = LOAN_ADD_QUERY
                 values = (car_id, loan_amount, interest_rate, loan_term)
                 save_data(query, values)
@@ -72,6 +73,7 @@ def detail_car(request, id):
     if loans:
         interest_rate = interest_rate_calculation(loans[0]['loan'], loans[0]['interest_rate'], loans[0]['years'])
         instalment = instalment_calculation(loans[0]['loan'], loans[0]['interest_rate'], loans[0]['years'])
+        print(instalment)
     hpp = hpp_calculation(car[0]['price'], services[0]['price']) if services else car[0]['price']
 
     response = {

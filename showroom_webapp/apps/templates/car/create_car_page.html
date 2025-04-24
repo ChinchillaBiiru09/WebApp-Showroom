@@ -103,10 +103,23 @@
     </footer>
 
     <script>
-      document.getElementById('bankLoanCheck').addEventListener('change', function () {
-        const details = document.getElementById('bankLoanDetails');
-        details.style.display = this.checked ? 'block' : 'none';
-      });
+        document.getElementById('bankLoanCheck').addEventListener('change', function () {
+            const checkbox = document.getElementById("bankLoanCheck");
+            const loanDetails = document.getElementById("bankLoanDetails");
+
+            checkbox.addEventListener("change", function () {
+                if (this.checked) {
+                    loanDetails.style.display = "block";
+                } else {
+                    loanDetails.style.display = "none";
+                }
+            });
+
+            // Trigger display if checkbox was already checked (in case of form resubmit)
+            if (checkbox.checked) {
+                loanDetails.style.display = "block";
+            }
+        });
     </script>
 </body>
 </html>

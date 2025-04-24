@@ -33,8 +33,8 @@ CAR_DELETE_QUERY = """
 # CAR QUERY - START ======================================================
 # ========================================================================
 LOAN_ADD_QUERY = """
-    INSERT INTO apps_loan (car_id, loan, interest_rate, created_at, updated_at)
-    VALUES (%s, %s, %s, NOW(), NOW())
+    INSERT INTO apps_loan (car_id, loan, interest_rate, years, created_at, updated_at)
+    VALUES (%s, %s, %s, %s, NOW(), NOW())
 """
 LOAN_GET_BY_CAR_QUERY = """
     SELECT * FROM apps_loan
